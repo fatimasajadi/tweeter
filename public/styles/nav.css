@@ -1,0 +1,28 @@
+nav {
+    height: 120px;
+    background-color: #4056A1;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.logo {
+    display: inline-block;
+    font-family: Bungee, sans-serif;
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+}
+
+.description {
+    display: inline-block;
+    justify-content: end;
+    margin-right: 1.5em;
+    background-color: Transparent;
+    outline: none;
+    border: none;
+    color: white;
+}
