@@ -18,6 +18,7 @@
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./scripts/composer-char-counter.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
@@ -27,14 +28,19 @@
     <!-- Top nav bar (fixed) -->
     <nav>
         <span class="logo">tweeter</span>
-        <button class="description"><strong>Write</strong> a new tweet</button>
+        <div>
+            <button class="description"><strong>Write</strong> a new tweet</button>
 
+            <img src="/images/arrow.png" class="arrow bounce"></img>
+
+        </div>
     </nav>
+
     <header class="header">
         <div class="avatar">
             <img src="/images/profile-hex.png">
         </div>
-        <br>
+
         <div class="avatar-name">
             <h2>Fatima Sajadi</h2>
         </div>
@@ -48,14 +54,13 @@
         <section class="new-tweet">
             <form class="tweet-form" method="POST" action="/tweets/">
                 <label class="tweet-label" for="tweet-text"><strong>What are you humming about?</strong></label>
-                <textarea class="tweet-textarea" name="text" id="tweet-text"></textarea>
+                <textarea autofocus class="tweet-textarea" name="text" id="tweet-text"></textarea>
                 <div class="button-parrent">
                     <button class="tweet-button" type="submit">Tweet</button>
                     <output name="counter" class="counter" for="tweet-text"><strong>140 </strong></output>
                 </div>
             </form>
         </section>
-
 
         <section class="tweet-container">
 

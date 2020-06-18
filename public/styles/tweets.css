@@ -63,6 +63,29 @@
     display: inline-block;
 }
 
+.tweet footer span {
+    margin-right: 15px;
+    margin-top: 0;
+}
+
 .tweet footer span img {
     margin-top: 0;
+}
+
+.tweet-container article p {
+    margin-left: 15px;
+}
+
+.tweet-container article hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border: 2px solid #666;
+}
+
+.tweet footer p {
+    margin-left: 15px;
 }

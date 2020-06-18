@@ -3,11 +3,16 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-
 $(document).ready(function() {
   $(".error").hide();
+  $(".new-tweet").hide();
 
-  const createTweetElement = function(tweet) {
+  const renderTime = function(tweet) {
+    return moment(tweet.created_at).fromNow();
+  }
+
+  const createTweetElement = function(tweet, time) {
+    time = renderTime(tweet);
     const $tweet = $(`
     <div class="tweet">
       <header class="tweet-header">
@@ -16,9 +21,10 @@ $(document).ready(function() {
       </header>
       <article>
             <p>${tweet.content.text.replace('<', '&lt;').replace('>', '&gt;')}</p>
+            <hr>
       </article>
       <footer>
-          <p>${tweet.created_at}</p>
+          <p class="time">${time}</p>
           <span>
             <img src="/images/flag24.png">
             <img src="/images/retweet30px.png">
@@ -35,6 +41,11 @@ $(document).ready(function() {
       $('.tweet-container').prepend(createTweetElement(tweet));
     }
   }
+  $(".description").click(function() {
+    // $(".new-tweet").show();
+    $(".new-tweet").toggle();
+
+  });
 
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
@@ -44,13 +55,13 @@ $(document).ready(function() {
       $.post('/tweets', { text: text })
         .then(function(data) {});
       loadTweets();
+      $(".tweet-textarea").val('');
 
     } else {
-      // alert("Your tweet is too long to be published!")
+
       $(".error").append("Too long. Plz respect our arbitrary limit of 140 chars.");
       $(".error").show();
     }
-
   });
 
   function loadTweets() {
@@ -70,7 +81,6 @@ $(document).ready(function() {
       .always(function() {
         console.log('complete');
       });
-
   };
 
   loadTweets();
