@@ -9,9 +9,9 @@ $(document).ready(function() {
   $(".floatScroll ").hide();
 
   const renderTime = function(tweet) {
-    return moment(tweet.created_at).fromNow();
-  }
-
+      return moment(tweet.created_at).fromNow();
+    }
+    //A function to create html template for new tweets
   const createTweetElement = function(tweet, time) {
     time = renderTime(tweet);
     const $tweet = $(`
@@ -36,32 +36,45 @@ $(document).ready(function() {
   `);
     return $tweet;
   }
+
+  //An event to automatically scroll to the bottom of the page when the red arrow (top right corner) clicked.
   $(".arrow").click(function() {
     $(document).scrollTop($(document).height());
   });
+
+  //An event to automatically scroll to the top of the page when the red circle (bottom right corner) clicked.
   $(".floatScroll").click(function() {
     $('html, body').animate({ scrollTop: 0 }, 'slow');
     return false;
   });
 
+  //The red circle (bottom right corner) only appears when user scroll more than 300px.
+  //The red circle disappear if user scrolls all the way up to the very top of the page.
   $(document).bind("scroll", function() {
     if ($(document).scrollTop() >= 300) {
       $(".floatScroll ").show();
     } else if ($(document).scrollTop() === 0) {
       $(".floatScroll ").hide();
     }
-
   });
 
+  //A function to loop through the array of tweets and then prepend the info to the html template.
   const renderTweets = function(tweets) {
     for (let tweet of tweets) {
       $('.tweet-container').prepend(createTweetElement(tweet));
     }
-  }
+  };
+
+  //Toggle the new tweet section by clicking on the compose button on top right corner of the page
   $(".description").click(function() {
     $(".new-tweet").slideToggle();
   });
 
+  //when the tweet button clicked (actually the form is submitted),
+  //first of all, prevent the default behaviour of the form
+  //Then extract the text that user enter in the text area
+  //After extracting the info from user input, find the closest form element parent of the text input
+  //and find it's sibling (the counter element) and finally implement the counter functionality.
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
     let text = $(".tweet-textarea").val();
@@ -92,10 +105,12 @@ $(document).ready(function() {
         .then(function(data) {});
       loadTweets();
       $(".tweet-textarea").val('');
-
     }
   });
 
+  //A function to get the data from server using ajax and 
+  //also sends back the data that user enters back to the server
+  //error handling also implemented
   function loadTweets() {
     url = "/tweets/";
     $.ajax({
