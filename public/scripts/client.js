@@ -42,26 +42,36 @@ $(document).ready(function() {
     }
   }
   $(".description").click(function() {
-    // $(".new-tweet").show();
     $(".new-tweet").toggle();
-
   });
 
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
 
     let text = $(".tweet-textarea").val();
-    if (text.length <= 140 && text.length !== 0) {
+
+    if (text.length <= 140 && text.length !== 0 && $(".error")) {
+      console.log("khar injas")
+      $.post('/tweets', { text: text })
+        .then(function(data) {});
+      $(".error").hide();
+      loadTweets();
+      $(".tweet-textarea").val('');
+
+    } else if (text.length > 140) {
+      $(".error").append("Too long. Plz respect our arbitrary limit of 140 chars.");
+      $(".error").show();
+    } else if (text.length === 0) {
+      $(".error").append("Your tweet can not be empty!");
+      $(".error").show();
+    } else if (text.length <= 140 && text.length !== 0) {
       $.post('/tweets', { text: text })
         .then(function(data) {});
       loadTweets();
       $(".tweet-textarea").val('');
 
-    } else {
-
-      $(".error").append("Too long. Plz respect our arbitrary limit of 140 chars.");
-      $(".error").show();
     }
+
   });
 
   function loadTweets() {
