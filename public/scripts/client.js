@@ -47,8 +47,16 @@ $(document).ready(function() {
 
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
-
     let text = $(".tweet-textarea").val();
+
+
+    let parentText = $(event.target).closest('form');
+    let counterUpdate = parentText.find('.counter');
+    if ($(".counter").val() < 140) {
+      console.log($(".counter").val());
+      counterUpdate.html(140);
+    }
+
 
     if (text.length <= 140 && text.length !== 0 && $(".error")) {
       console.log("khar injas")
@@ -71,7 +79,6 @@ $(document).ready(function() {
       $(".tweet-textarea").val('');
 
     }
-
   });
 
   function loadTweets() {
