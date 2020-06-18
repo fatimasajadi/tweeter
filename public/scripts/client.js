@@ -6,6 +6,7 @@
 $(document).ready(function() {
   $(".error").hide();
   $(".new-tweet").hide();
+  $(".floatScroll ").hide();
 
   const renderTime = function(tweet) {
     return moment(tweet.created_at).fromNow();
@@ -35,6 +36,22 @@ $(document).ready(function() {
   `);
     return $tweet;
   }
+  $(".arrow").click(function() {
+    $(document).scrollTop($(document).height());
+  });
+  $(".floatScroll").click(function() {
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+    return false;
+  });
+
+  $(document).bind("scroll", function() {
+    if ($(document).scrollTop() >= 300) {
+      $(".floatScroll ").show();
+    } else if ($(document).scrollTop() === 0) {
+      $(".floatScroll ").hide();
+    }
+
+  });
 
   const renderTweets = function(tweets) {
     for (let tweet of tweets) {
@@ -42,13 +59,12 @@ $(document).ready(function() {
     }
   }
   $(".description").click(function() {
-    $(".new-tweet").toggle();
+    $(".new-tweet").slideToggle();
   });
 
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
     let text = $(".tweet-textarea").val();
-
 
     let parentText = $(event.target).closest('form');
     let counterUpdate = parentText.find('.counter');
@@ -56,7 +72,6 @@ $(document).ready(function() {
       console.log($(".counter").val());
       counterUpdate.html(140);
     }
-
 
     if (text.length <= 140 && text.length !== 0 && $(".error")) {
       console.log("khar injas")
