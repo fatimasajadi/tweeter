@@ -92,6 +92,7 @@ $(document).ready(function() {
       $.post('/tweets', { text: text })
         .then(function(data) {});
       $(".error").hide();
+      $('.tweet-button').prop('disabled', true);
       loadTweets();
       $(".tweet-textarea").val('');
 
@@ -105,6 +106,7 @@ $(document).ready(function() {
       $.post('/tweets', { text: text })
         .then(function(data) {});
       loadTweets();
+      // $('.tweet-button').prop('disabled', false);
       $(".tweet-textarea").val('');
     }
   });
@@ -122,6 +124,8 @@ $(document).ready(function() {
         console.log(response);
         $('.tweet-container').html('');
         renderTweets(response);
+        $('.tweet-button').prop('disabled', false);
+
       })
       .fail(function() {
         console.log('error');
