@@ -4,7 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 $(document).ready(function() {
-  $(".error").hide();
+  // $(".error").hide();
   $(".new-tweet").hide();
   $(".floatScroll ").hide();
 
@@ -88,10 +88,8 @@ $(document).ready(function() {
     }
 
     if (text.length <= 140 && text.length !== 0 && $(".error")) {
-      console.log("khar injas")
       $.post('/tweets', { text: text })
         .then(function(data) {});
-      $(".error").hide();
       $('.tweet-button').prop('disabled', true);
       loadTweets();
       $(".tweet-textarea").val('');

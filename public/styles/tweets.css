@@ -20,6 +20,7 @@
     border: 3.5px solid red;
     padding: 15px;
     color: red;
+    display: none;
 }
 
 .tweet:hover {
