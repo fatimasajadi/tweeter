@@ -68,6 +68,7 @@ $(document).ready(function() {
   //Toggle the new tweet section by clicking on the compose button on top right corner of the page
   $(".description").click(function() {
     $(".new-tweet").slideToggle();
+    $(".tweet-textarea").focus();
   });
 
   //when the tweet button clicked (actually the form is submitted),
