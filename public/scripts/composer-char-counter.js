@@ -8,10 +8,11 @@ $(document).ready(function() {
     let parentText = $(event.target).closest('form');
     let counterUpdate = parentText.find('.counter');
     if (counter >= 0) {
+      counterUpdate.css({ 'color': 'unset' });
       counterUpdate.html(counter);
     } else {
       counterUpdate.html(counter);
-      (counterUpdate).css({ 'color': 'red' });
+      counterUpdate.css({ 'color': 'red' });
     }
   })
 });

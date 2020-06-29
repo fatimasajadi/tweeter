@@ -35,6 +35,15 @@
     padding: 15px;
 }
 
+.tweet-header p {
+    flex: 1;
+    text-align: right;
+}
+
+.tweet-header div {
+    padding: 10px;
+}
+
 .tweet article form label {
     position: absolute;
 }

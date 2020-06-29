@@ -18,6 +18,7 @@ $(document).ready(function() {
     <div class="tweet">
       <header class="tweet-header">
           <img src="${tweet.user.avatars}">
+          <div>${tweet.user.name}</div>
           <p>${tweet.user.handle}</p>
       </header>
       <article>
@@ -82,10 +83,6 @@ $(document).ready(function() {
 
     let parentText = $(event.target).closest('form');
     let counterUpdate = parentText.find('.counter');
-    if ($(".counter").val() < 140) {
-      console.log($(".counter").val());
-      counterUpdate.html(140);
-    }
 
     if (text.length <= 140 && text.length !== 0 && $(".error")) {
       $.post('/tweets', { text: text })
@@ -93,21 +90,23 @@ $(document).ready(function() {
       $('.tweet-button').prop('disabled', true);
       loadTweets();
       $(".tweet-textarea").val('');
-
+      counterUpdate.html(140);
     } else if (text.length > 140) {
-      $(".error").append("Too long. Plz respect our arbitrary limit of 140 chars.");
+      $(".error").html("❗Too long. Plz respect our arbitrary limit of 140 chars.❗");
       $(".error").show();
+
     } else if (text.length === 0) {
-      $(".error").append("Your tweet can not be empty!");
+      $(".error").html("❗Can't be empty!❗");
       $(".error").show();
-    } else if (text.length <= 140 && text.length !== 0) {
-      $.post('/tweets', { text: text })
-        .then(function(data) {});
-      loadTweets();
-      // $('.tweet-button').prop('disabled', false);
-      $(".tweet-textarea").val('');
     }
-  });
+  })
+
+  $(".tweet-textarea").on('input', function(event) {
+    let text = $(".tweet-textarea").val();
+    if (text.length <= 140 || text.length === 0) {
+      $(".error").hide();
+    }
+  })
 
   //A function to get the data from server using ajax and 
   //also sends back the data that user enters back to the server
@@ -123,7 +122,6 @@ $(document).ready(function() {
         $('.tweet-container').html('');
         renderTweets(response);
         $('.tweet-button').prop('disabled', false);
-
       })
       .fail(function() {
         console.log('error');
