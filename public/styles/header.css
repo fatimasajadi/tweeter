@@ -1,24 +1,24 @@
-        header {
-            height: 500px;
-        }
-        
-        .avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 130px;
-        }
-        
-        .avatar-name {
-            display: flex;
-            justify-content: center;
-            color: white;
-            padding: 0px;
-        }
-        
-        .header {
-            display: flex;
-            flex-direction: column;
-            background-color: #c48e18;
-            background-image: url("https://www.transparenttextures.com/patterns/skulls.png");
-        }
+header {
+    height: 500px;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 130px;
+}
+
+.avatar-name {
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 0px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    background-color: #c48e18;
+    background-image: url("https://www.transparenttextures.com/patterns/skulls.png");
+}

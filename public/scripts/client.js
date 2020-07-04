@@ -68,8 +68,14 @@ $(document).ready(function() {
 
   //Toggle the new tweet section by clicking on the compose button on top right corner of the page
   $(".description").click(function() {
-    $(".new-tweet").slideToggle();
-    $(".tweet-textarea").focus();
+    const newTweet = $('.new-tweet');
+    /*
+it's because 
+    */
+    newTweet.slideToggle(() => {
+      $(".tweet-textarea").focus();
+    });
+
   });
 
   //when the tweet button clicked (actually the form is submitted),
@@ -79,30 +85,31 @@ $(document).ready(function() {
   //and find it's sibling (the counter element) and finally implement the counter functionality.
   $(".tweet-form").on('submit', function(event) {
     event.preventDefault();
-    let text = $(".tweet-textarea").val();
+    const text = $(".tweet-textarea").val();
 
-    let parentText = $(event.target).closest('form');
-    let counterUpdate = parentText.find('.counter');
+    const parentText = $(event.target).closest('form');
+    const counterUpdate = parentText.find('.counter');
 
     if (text.length <= 140 && text.length !== 0 && $(".error")) {
       $.post('/tweets', { text: text })
-        .then(function(data) {});
-      $('.tweet-button').prop('disabled', true);
-      loadTweets();
-      $(".tweet-textarea").val('');
-      counterUpdate.html(140);
+        .then(function(data) {
+          loadTweets();
+          $('.tweet-button').prop('disabled', true);
+          $(".tweet-textarea").val('');
+          counterUpdate.html(140);
+        });
     } else if (text.length > 140) {
-      $(".error").html("❗Too long. Plz respect our arbitrary limit of 140 chars.❗");
+      $(".error").html("Too long. Plz respect our arbitrary limit of 140 chars.");
       $(".error").show();
 
     } else if (text.length === 0) {
-      $(".error").html("❗Can't be empty!❗");
+      $(".error").html("Can't be empty!");
       $(".error").show();
     }
-  })
+  });
 
   $(".tweet-textarea").on('input', function(event) {
-    let text = $(".tweet-textarea").val();
+    const text = $(".tweet-textarea").val();
     if (text.length <= 140 || text.length === 0) {
       $(".error").hide();
     }
